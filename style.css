@@ -37,7 +37,10 @@ button:active {
 }
 
 .letter {
-  align-items: center;
+  /*align-items: center;*/
+
+  padding-left: 5%;
+  padding-top: 5%;
   border: 2px solid #dee1e9;
   font-size: 28px;
   font-weight: 700;
@@ -52,8 +55,10 @@ button:active {
 
 .row {
   display: flex;
-  justify-content: center;
-  text-align: center;
+  /* display: flex;
+  text-align: center; */
+  /* justify-content: center;
+  align-items: center; */
 }
 
 .input-area {

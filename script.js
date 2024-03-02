@@ -1,13 +1,21 @@
 //Variables
 let intentos = 6;
 let diccionario = ["APPLE", "HURLS", "WINGS", "YOUTH"];
-const palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
+let palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
 const button = document.getElementById("guess-button");
 const INPUT = document.getElementById("guess-input");
+const API = "https://random-word-api.vercel.app/api?words=1&length=5&type=uppercase";
 
 window.addEventListener("load", init);
 
 function init() {}
+
+fetch(API).then((response) => {
+  response.json().then((body) => {
+    palabra = body[0];
+    //console.log(palabra);
+  });
+});
 
 // Se determina si es un evento de teclado o de click para ejecutar la funcion intentar
 if (
@@ -23,11 +31,13 @@ if (
   });
 }
 
+
 //Funciones
 function intentar() {
   const INTENTO = leerIntento();
-  if (INTENTO === "") {
-    Swal.fire("Debes ingresar una palabra");
+  const regex = /^[A-Za-z]+$/; //Solo letras
+  if (regex.test(INTENTO) === false) {
+    Swal.fire("Debes ingresar una palabra valida");
     return;
   }
   if (INTENTO.length !== palabra.length) {
@@ -48,6 +58,7 @@ function intentar() {
   const GRID = document.getElementById("grid");
   const ROW = document.createElement("div");
   ROW.className = "row";
+  
   for (let i in palabra) {
     const SPAN = document.createElement("span");
     SPAN.className = "letter";
